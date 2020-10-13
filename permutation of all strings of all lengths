@@ -1,0 +1,25 @@
+import java.util.*;
+class probs{
+    static Set<String>st=new HashSet<>();
+    public static void per(String s,String res,int length){
+        if(s.length()==length-1){
+            st.add(res+"");
+            return;
+        }
+        for(int i=0;i<s.length();i++){
+            char c=s.charAt(i);
+            String ans=s.substring(0,i)+s.substring(i+1);
+            per(ans,res+c,length);
+        }
+    }
+    public static void main(String[] args){
+        Scanner sc=new Scanner(System.in);
+        String s=sc.next();
+        for(int i=1;i<=s.length();i++)
+        per(s,"",i);
+        System.out.print(st.size());
+        //System.out.print(st);
+        
+        
+    }
+}

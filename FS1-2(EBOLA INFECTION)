@@ -1,0 +1,40 @@
+import java.util.*;
+import java.lang.*;
+class prob{
+    static int rows;
+    static int cols;
+    static int grid[][];
+    static int doit(){
+        boolean flag=false;
+        int m=2;
+        while(true){
+        for(int i=1;i<=rows;i++)
+        {for(int j=1;j<=cols;j++){
+            if(grid[i][j]==m){
+                if(grid[i-1][j]==1){ grid[i-1][j]=m+1; flag=true;}
+                if(grid[i+1][j]==1) { grid[i+1][j]=m+1; flag=true;}
+                if(grid[i][j-1]==1){ grid[i][j-1]=m+1; flag=true;}
+                if(grid[i][j+1]==1){ grid[i][j+1]=m+1; flag=true;}
+                
+            }
+            
+        }
+    }
+    if(flag==false) break;
+    flag=false;
+    m+=1;
+            
+        }
+    for(int i=1;i<=rows;i++) for(int j=1;j<=cols;j++) if(grid[i][j]==1) return -1;
+        return m-2;}
+    public static void main(String[] args){
+    Scanner sc=new Scanner(System.in);
+    rows=sc.nextInt();
+    cols=sc.nextInt();
+    grid=new int[rows+2][cols+2];
+    for(int i=1;i<=rows;i++){ for(int j=1;j<=cols;j++){ if(i==0||i==rows+1||j==0||j==cols+1) grid[i][j]=0; else {grid[i][j]=sc.nextInt();}}}
+    System.out.print(doit());
+    //for(int i=0;i<=rows+1;i++){ for(int j=0;j<=cols+1;j++){ System.out.print(grid[i][j]+" ");}System.out.println();}
+        
+    }
+}

@@ -1,0 +1,28 @@
+class Solution{
+    int length;
+    long nums[];
+    Solution(int n[]){
+        length=n.length+1;
+        nums=new long[length];
+        for(int i=0;i<n.length;i++)
+        lel(i+1,n[i]);
+    }
+    public void lel(int i,int n){
+        while(i<length){
+            nums[i]+=n;
+            i+=i&(-i);
+        }
+    }
+    public long bruh(int i){
+        long sum=0;
+        while(i>0){
+            sum+=nums[i];
+            i-=i&(-i);
+        }
+        return sum;
+    }
+    public long sum(int s1,int s2){
+        return bruh(s2+1)-bruh(s1);
+    }
+
+}

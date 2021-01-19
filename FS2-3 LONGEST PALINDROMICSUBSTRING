@@ -1,0 +1,51 @@
+import java.util.*;
+import java.lang.*;
+import java.io.*;
+class problemo{
+    public static void main(String[] args){
+        Scanner sc=new Scanner(System.in);
+        String s=sc.next();
+        int l = s.length();
+        int e=l;
+        int arr[][] = new int[l][l];
+        int max=1;
+        for(int i=0;i<l; i++)
+        {
+            arr[i][i] = 1;
+        }
+        //for(int i=0;i<l;i++){ for(int j=0;j<l;j++) {System.out.print(arr[i][j]+" ");} System.out.println();}
+        int j=0;
+        for(int k=2;k<=l;k++)
+        {
+            for (int i =0;i<l-k+1;i++)
+            {
+                j=i+k-1;
+                if(s.charAt(i)==s.charAt(j))
+                {
+                    if(k==2)
+                    {
+                        arr[i][j]=1;
+                        if(max<=k)
+                        {
+                            max=k;
+                            e=i;
+                        }
+                    }
+                    else
+                    {
+                        if (arr[i+1][j-1]!=0)
+                        {
+                            arr[i][j]=1;
+                            if(max<=k)
+                            {
+                                max=k;
+                                e=i;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        System.out.print(s.substring(e,e+max));
+}
+}

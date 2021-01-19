@@ -1,0 +1,67 @@
+There are pair of words namely W1 and W2 with a limited of word range, 
+Create a method to return a true value if W2 contains the anagram of W1. 
+In additional, one of the anagram of first word is the substring of the second word.
+
+Your task is to implement the Solution class, and implement a method in it, 
+	- public boolean checkPalindromeSubstring(String w1, String w2){}.
+
+Input Format:
+-------------
+Two space separated words w1 and w2, consist of lowercase letters only.
+
+Output Format:
+--------------
+Print a boolean value, if W2 contains the anagram of W1 or not.
+
+
+Sample Input-1:
+---------------
+abbcbb abbbabbcb
+
+Sample Output-1:
+----------------
+true
+
+
+Sample Input-2:
+---------------
+abbcbbc abbbabbcb
+
+Sample Output-2:
+----------------
+false
+
+
+
+
+
+import java.util.*;
+import java.lang.*;
+import java.io.*;
+class Solution{
+    public static boolean anag(String s1,String s2){
+        int arr1[]=new int[26];
+        int arr2[]=new int[26];
+        for(int i=0;i<s1.length();i++) { arr1[s1.charAt(i)-'a']++; arr2[s2.charAt(i)-'a']++;}
+        return(Arrays.equals(arr1,arr2));
+    }
+    public static long hash(String s) {
+    	char c[]=s.toCharArray();
+    	long l=1;
+    	for(char ch:c) l*=ch; return l;
+    }
+    public static boolean checkSubstring(String s1,String s2){
+        int l1=s1.length();
+        int l2=s2.length();
+        long hash_s1=hash(s1);
+        for(int i=0;i<=l2-l1;i++)
+        {
+        if(hash_s1==hash(s2.substring(i,i+l1))&&anag(s1,s2.substring(i,i+l1))) return true;
+        }
+    return false;
+}
+    public static void main(String[] args)
+    {
+    	Scanner sc=new Scanner(System.in);
+    	System.out.println(checkSubstring(sc.next(),sc.next()));}
+    }

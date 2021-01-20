@@ -1,0 +1,36 @@
+import java.util.*;
+import java.lang.*;
+
+class Solution 
+{ 
+    static int tree[];
+    // method to implement segment tree
+    void build(int v,int nums[],int start,int end){
+        if(start==end){tree[v]=nums[start];return;}
+        else{
+        int m=(start+end)/2;
+        build(v*2+1,nums,start,m);
+        build(v*2+2,nums,m+1,end);
+        tree[v]=Math.min(tree[v*2+1],tree[v*2+2]);
+    }}
+	void segmentTree(int nums[], int n) 
+	{ 
+	    tree=new int[4*n];
+	    //Arrays.fill(tree,0);
+	    build(0,nums,0,n-1);
+	    
+	} 
+
+    int findit(int v,int l,int r,int s1,int s2){
+        if(s1>r||l>s2) return Integer.MAX_VALUE;
+        if(s1<=l&&s2>=r) return tree[v];
+        int mid=(l+r)/2;
+        return Math.min(findit(v*2+1,l,mid,s1,s2),findit(v*2+2,mid+1,r,s1,s2));
+        
+    }
+	int findMinimum(int n, int s1, int s2) 
+	{ 
+	    return(findit(0,0,n-1,s1,s2));
+	} 
+
+}

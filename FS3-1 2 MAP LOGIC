@@ -1,0 +1,36 @@
+import java.util.*;
+import java.lang.*;
+class acr{
+    public static String hashC(String c){
+        if(c.length()==2) return c;
+        else return(c.charAt(0)+String.valueOf(c.length()-2)+c.charAt(c.length()-1));
+    }
+    public static void main(String[] args){
+        Scanner sc=new Scanner(System.in);
+        String strings[]=sc.nextLine().split(" ");
+        Map<String,Integer>mp=new HashMap<>();
+        Map<String,Boolean>t_val=new HashMap<>();
+        for(int i=0;i<strings.length;i++) t_val.put(strings[i],true);
+        String hash;
+        for(int i=0;i<strings.length;i++){
+            if(strings[i].length()==2)
+            {
+            hash=hashC(strings[i]);
+            }
+            else{
+            hash=hashC(strings[i]);
+            }
+            if(mp.containsKey(hash)&&(strings[i].equals(strings[mp.get(hash)])==false)) { t_val.put(strings[mp.get(hash)],false); t_val.put(strings[i],false); }
+            if(mp.containsKey(hash)==false) { mp.put(hash,i);}
+        }
+        String words[]=sc.nextLine().split(" ");
+        for(int i=0;i<words.length;i++){
+            hash=hashC(words[i]);
+            if((mp.containsKey(hash)==false)||(mp.containsKey(hash)&&(strings[mp.get(hash)].equals(words[i])&&t_val.get(strings[mp.get(hash)]))))
+            System.out.print(true+" ");
+            else
+            System.out.print(false+" ");
+        }
+        
+    }
+}

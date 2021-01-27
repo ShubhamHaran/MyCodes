@@ -1,0 +1,20 @@
+import java.util.*;
+class prob{
+    public static void main(String[] args){
+        Scanner sc=new Scanner(System.in);
+        String s=sc.next();
+        int t=sc.nextInt();
+        String temp;
+        for(int i=0;i<=s.length()-t;i++){
+            int j=i+1;
+            while(s.charAt(i)==s.charAt(j)&&j-i<t&&j<s.length()){
+                j+=1;
+                if(j==s.length())
+                break;
+            }
+            if(j-i==t)
+            {temp=s.substring(0,i)+s.substring(j,s.length());i=-1; s=temp;}
+        }
+        System.out.print(s);
+    }
+}

@@ -1,0 +1,57 @@
+import java.util.*;
+class prob{
+    static List<List<Integer>> out;
+    static List<List<Integer>>in;
+    static int n;
+    static int m;
+    static Stack<Integer>st;
+    public static void topo(int i,boolean visited[]){
+        visited[i]=true;
+        for(int k=0;k<out.get(i).size();k++){
+            if(visited[out.get(i).get(k)]==false)
+            topo(out.get(i).get(k),visited);
+        }
+        st.push(i);
+    }
+    public static void do_dfs(){
+        boolean visited[]=new boolean[n];
+        st=new Stack<Integer>();
+        for(int i=0;i<n;i++){
+            if(visited[i]==false){
+                topo(i,visited);
+            }
+        }
+        System.out.print(st);
+        
+    }
+    public static void main(String[] args){
+        Scanner sc=new Scanner(System.in);
+        n=sc.nextInt();
+        m=sc.nextInt();
+        int a,b;
+        in=new ArrayList<>();
+        out=new ArrayList<>();
+        for(int i=0;i<n;i++) {
+            in.add(new ArrayList<Integer>()); 
+            out.add(new ArrayList<Integer>());
+            }
+        for(int i=0;i<m;i++){
+            a=sc.nextInt();
+            b=sc.nextInt();
+            out.get(a).add(b);
+            in.get(b).add(a);
+            }
+            int flag=0;
+        for(int i=0;i<n;i++){
+            if(in.get(i).size()==0){
+                flag=1; break;
+            }
+            
+        }
+        if(flag==1) do_dfs();
+        else
+        System.out.print("[]");
+        
+        
+    }
+}

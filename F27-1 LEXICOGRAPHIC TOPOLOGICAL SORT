@@ -1,0 +1,49 @@
+import java.util.*;
+class prob{
+    static Map<String,TreeSet<String>>mp=new HashMap<>();
+    static Stack<String>stack=new Stack<>();
+    static void topo(String city){
+    	//System.out.println(city);
+    	try {
+        TreeSet<String>pq=mp.get(city);
+        while(pq.size()!=0){
+        	String s=pq.pollFirst();
+        	mp.put(city, pq);
+            topo(s);
+        }}
+    	catch(Exception e) {
+    	    //String s="BZA";
+    		//topo(s);
+    	}
+        stack.push(city);
+    }
+    static void do_dfs(){
+    	String s="BZA";
+        topo(s);
+        List<String>l=new ArrayList<>();
+        while(!stack.empty()) l.add(stack.pop());
+        System.out.println(l);
+    }
+    public static void main(String[] args){
+        Scanner sc=new Scanner(System.in);
+        String sarr[]=sc.nextLine().split(",");
+        String S1=new String();
+        String S2=new String();
+        String travel[][]=new String[sarr.length][2];
+        for(int i=0;i<sarr.length;i++){
+            S1=sarr[i].substring(0,3);
+            S2=sarr[i].substring(4);
+            if(mp.containsKey(S1))
+            {
+                TreeSet<String>pq=mp.get(S1);
+                pq.add(S2);
+                mp.put(S1,pq);
+            }
+            else{
+                TreeSet<String>pq=new TreeSet<>();
+                pq.add(S2);
+                mp.put(S1,pq);
+            }
+    }
+    do_dfs();
+    }}

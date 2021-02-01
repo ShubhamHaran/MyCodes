@@ -1,0 +1,50 @@
+import java.lang.*;
+import java.util.*;
+import java.io.*;
+/*
+Singly Linked List
+class ListNode{
+    // Members of the class are:
+    int val;    // station number
+    ListNode next;  // next station
+}
+
+*/
+class compi implements Comparator<ListNode>{
+    public int compare(ListNode a,ListNode b){
+        return a.val-b.val;
+    }
+}
+class Solution {
+    // Implement mergeKLists method	
+	public ListNode mergeKTracks(ListNode[] tracks) {
+	    ListNode temp=null;
+	    PriorityQueue<ListNode>pq=new PriorityQueue<>(new compi());
+	    ListNode node=null;
+	    for(int i=0;i<tracks.length;i++){
+	         pq.offer(tracks[i]);
+	    }
+	    ListNode head=null;
+	    while(pq.size()!=0){
+	        if(head==null){
+	        node=pq.peek();
+	        head=node;
+	        pq.poll();
+	        temp=head;
+	        }
+	        else{
+	            node=pq.peek();
+	            temp.next=node;
+	            temp=node;
+	            pq.poll();
+	        }
+	        if(node.next!=null)
+	        {
+	            pq.offer(node.next);
+	        }
+	    }
+	    return head;
+	        
+
+	}
+}	

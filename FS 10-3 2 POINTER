@@ -1,0 +1,26 @@
+import java.util.*;
+import java.io.*;
+class prob{
+    public static void main(String[] args){
+        Scanner sc=new Scanner(System.in);
+        int length=sc.nextInt();
+        int rand=sc.nextInt();
+        int arr[]=new int[length];
+        for(int i=0;i<length;i++)
+        arr[i]=sc.nextInt();
+        int c=0; 
+        int l=0; 
+        int max=0; 
+        for(int r=0;r<length;r++) { 
+        if(arr[r]==0) 
+            c+=1; 
+        if(c>rand) { 
+            if(arr[l]==0) 
+            c-=1; 
+            l+=1; 
+        } 
+        max = Math.max(max,r-l+1); 
+    }
+    System.out.print(max);
+    }
+}

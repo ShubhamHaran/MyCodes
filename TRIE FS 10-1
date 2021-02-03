@@ -1,0 +1,48 @@
+import java.util.*;
+class Trie{
+    int max=26;
+    Trie children[]=new Trie[max];
+    Trie(){
+        for(int i=0;i<26;i+=1)
+        children[i]=null;
+    }
+    void insert(String s){
+        if(s.length()>0){
+            char ch=(char)(s.charAt(0)-'a');
+            if(children[ch]==null)
+            children[ch]=new Trie();
+            children[ch].insert(s.substring(1));
+        }
+    }
+    
+}
+class STrie{
+    Trie root;
+    STrie(String s){
+        root=new Trie();
+        for(int i=0;i<s.length();i+=1)
+        root.insert(s.substring(i));
+    }
+    int countN(Trie node){
+        if(node==null)
+        return 0;
+        int c=0;
+        for(int i=0;i<26;i++){
+            if(node.children[i]!=null){
+                c+=countN(node.children[i]);
+            }
+        }
+        return(1+c);
+    }
+    int count(){
+        return countN(root);
+    }
+}
+class prob{
+    public static void main(String[] args){
+        Scanner sc=new Scanner(System.in);
+        String s=sc.next();
+        STrie t=new STrie(s);
+        System.out.println(t.count()-1);
+    }
+}

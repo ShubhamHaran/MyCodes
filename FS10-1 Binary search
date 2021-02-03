@@ -1,0 +1,39 @@
+import java.util.*;
+import java.lang.*;
+class prob{
+    public static void main(String[] args){
+        Scanner sc=new Scanner(System.in);
+        int bag=sc.nextInt();
+        int box=sc.nextInt();
+        List<int[]>l=new ArrayList<int[]>();
+        for(int i=0;i<bag;i++){
+            int arr[]=new int[box];
+            for(int j=0;j<box;j++)
+            arr[j]=sc.nextInt();
+            l.add(arr);
+            //System.out.println(arr.length);
+        }
+        /*for(int i=0;i<bag;i++){
+            int arr[]=l.get(i);
+            for(int j=0;j<box;j+=1){
+                System.out.print(arr[j]+" ");
+            }
+            System.out.println();
+        }*/
+        int flag=0;
+        int first[]=l.get(0);
+        for(int i=0;i<box;i++){
+            int count=0;
+            int key=first[i];
+            for(int j=1;j<bag;j++){
+                int arr[]=l.get(j);
+                if(Arrays.binarySearch(arr,key)>=0)
+                count+=1;
+            }
+            if(count==bag-1)
+            {System.out.print(key); flag=1; break;}
+        }
+        if(flag==0) System.out.print("-1");
+        
+    }
+}

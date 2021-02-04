@@ -1,0 +1,30 @@
+import java.util.*;
+
+class prob{
+    public static void main(String[] args){
+        Scanner sc=new Scanner(System.in);
+        String arr[]=sc.nextLine().split(",");
+        int n=sc.nextInt();
+        //for(String s:arr) System.out.println(s);
+        //System.out.println(n);
+        Map<String,Integer>mp=new HashMap<>();
+        for(String s:arr)
+        mp.put(s,mp.getOrDefault(s,0)+1);
+        List<Map.Entry<String,Integer>>l=new LinkedList<>(mp.entrySet());
+        Collections.sort(l,new Comparator<Map.Entry<String,Integer>>(){
+            public int compare(Map.Entry<String,Integer>e1,Map.Entry<String,Integer>e2){
+                if(e2.getValue()!=e1.getValue())
+                return e2.getValue()-e1.getValue();
+                else
+                return e1.getKey().compareTo(e2.getKey());
+            }
+        });
+        List<String>lst=new ArrayList<>();
+        for(int i=0;i<n;i++)
+        
+        {lst.add(l.get(i).getKey());}
+        System.out.println(lst);
+        
+        
+    }
+}

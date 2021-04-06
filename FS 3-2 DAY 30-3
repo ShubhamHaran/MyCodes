@@ -1,0 +1,119 @@
+BCCI wants to select the group of bowlers for an upcoming test-series, you want
+to choose the group with highest number of wickets, which is the sum of wickets
+taken by all the bowlers in that group.
+
+However, the bowler group is not allowed to have any disputes. 
+A dispute exists if a younger bowler has strictly highest wickets than an 
+older bowler. A dispute does not occur between bowlers of the same age.
+
+You are given information of N bowlers as two lists, wickets and ages, 
+where each wickets[i] and ages[i] represents the wickets and age of the i-th bowler, 
+respectively, return the highest number of wickets of all possible bowler groups.
+
+Input Format:
+-------------
+Line-1: An integer N, number of bowlers.
+Line-2: N space separated integers, wickets[].
+Line-3: N space separated integers, ages[].
+
+Output Format:
+--------------
+An integer, highest number of wickets of all possible bowler groups.
+
+
+Sample Input-1:
+---------------
+4
+5 3 5 6
+3 5 4 2
+
+Sample Output-1:
+----------------
+10
+
+Explanation:
+------------
+It is best to choose 2 bowlers of age 3 and 4. 
+
+
+Sample Input-2:
+---------------
+5
+5 3 5 6 3
+2 5 4 2 1
+
+3 5 6 5 3
+1 2 2 4 5
+
+Sample Output-2:
+----------------
+14
+
+Explanation:
+------------
+It is best to choose 3 bowlers of age 1 and 2. 
+Notice that you are allowed to choose multiple bowlers of the same age.
+
+Sample Input-3:
+---------------
+5
+1 3 5 10 15
+1 2 3 4 5
+
+Sample Output-3:
+----------------
+34
+
+Explanation:
+------------
+You can choose all the bowlers.
+
+
+
+=============================
+
+
+import java.util.*;
+class bcci{
+    int wicket;
+    int age;
+    bcci(int wicket,int age){
+        this.wicket=wicket;
+        this.age=age;
+    }
+}
+class bcci_sort implements Comparator<bcci>{
+    public int compare(bcci a,bcci b){
+        if(a.age==b.age) return a.wicket-b.wicket;
+        else return a.age-b.age;
+    }
+}
+class prob{
+    public static void main(String[] args){
+        Scanner sc=new Scanner(System.in);
+        int n=sc.nextInt();
+        bcci b[]=new bcci[n];
+        int i,j;
+        for(i=0;i<n;i++) b[i]=new bcci(0,0);
+        for(i=0;i<n;i++)
+        b[i].wicket=sc.nextInt();
+        for(i=0;i<n;i++)
+        b[i].age=sc.nextInt();
+        Arrays.sort(b,new bcci_sort());
+        int dp[]=new int[n];
+        for(i=0;i<n;i++)
+        dp[i]=b[i].wicket;
+        int max=dp[0];
+        for(i=1;i<n;i++)
+        {for(j=0;j<i;j++){
+                if((b[i].age>b[j].age&&b[i].wicket>=b[j].wicket)||(b[i].age==b[j].age)){
+                    dp[i]=Math.max(dp[j]+b[i].wicket,dp[i]);
+                    max=Math.max(dp[i],max);
+                }
+            }
+        }
+        //for(i=0;i<n;i++) System.out.println(dp[i]);
+        System.out.print(max);
+        
+    }
+}

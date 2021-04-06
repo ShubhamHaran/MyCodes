@@ -1,0 +1,27 @@
+import java.util.*;
+import java.io.*;
+class prob{
+public static void main(String[] args){
+Scanner sc=new Scanner(System.in);
+int[] count=new int[26];
+int i;
+boolean[] visited=new boolean[26];
+char[] carray=sc.next().toCharArray();
+for(char c:carray){
+count[c-'a']+=1;}
+Stack<Character> stack=new Stack<>();
+for(char c:carray){ 
+i= c-'a';
+count[i]-=1;
+if(visited[i])
+continue;
+while(!stack.isEmpty() && c<stack.peek() && count[stack.peek()-'a']!=0){ 
+visited[stack.pop()-'a']=false;}
+stack.push(c);
+visited[i]=true;}
+StringBuilder stb=new StringBuilder();
+while(!stack.isEmpty()) stb.append(stack.pop());
+stb.reverse();
+System.out.print(stb);
+
+}}

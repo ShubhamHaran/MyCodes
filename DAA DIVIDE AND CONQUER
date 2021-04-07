@@ -1,0 +1,70 @@
+Somesh is playing with two sets of coins S1, S2 of equal size, 
+the coins are in ascending order of their value.He wants to 
+find the average of two coins, whose position is in the middle of 
+the set after merging S1 and S2 in ascending  order.
+Can you help Somesh to calculate the average of two coins in the middle.
+
+Input Format:
+-------------
+Line-1 -> n, Size of sets
+Line-2 -> n space separated integers
+Line-3 -> n space separated integers
+
+Output Format:
+--------------
+Print an integer as average of two coins in the middle.
+
+Sample Input-1:
+---------------
+5
+10 12 14 26 28
+20 22 24 25 27
+
+Sample Output-1:
+----------------
+23
+
+Explanation:
+After merging two sets, we get 10 12 14 20 22 24 25 26 27 28.
+middle 2 elements are 22 and 24.Average of 22 and 24 is 23.
+
+Sample Input-2:
+---------------
+3
+1 2 3
+4 5 6
+
+Sample Output-2:
+----------------
+3
+Explanation:
+After merging two sets, we get 1 2 3 4 5 6.
+middle 2 elements are 3 and 4. Average of 3 and 4 is 3.  
+======================================================================================
+
+
+
+import java.util.*;
+class pro{
+    public static void main(String[] args){
+        Scanner sc=new Scanner(System.in);
+        int n=sc.nextInt();
+        int arr1[]=new int[n];
+        int arr2[]=new int[n];
+        for(int i=0;i<n;i++) arr1[i]=sc.nextInt();
+        for(int i=0;i<n;i++) arr2[i]=sc.nextInt();
+        int i=0,j=0,k=0;
+        while(i<n&&j<n){
+            if(arr1[i]>arr2[j])
+            i++;
+            else
+            j++;
+        }
+        int median=0;
+            if(j==n&&i!=n) median=(arr2[n-1]+arr1[i])/2;
+            if(i==n&&j!=n) median=(arr1[n-1]+arr2[j])/2;
+            //if(i==n&&j==n) median=(arr1[n-1]+arr2[n-1])/2;
+        System.out.print(median);
+        
+    }
+}

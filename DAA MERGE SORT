@@ -1,0 +1,36 @@
+import java.util.*;
+class pro{
+    static int mergesort(int arr[],int start,int mid,int end){
+        int i=0,j=0,k=start,count=0;
+        int left[]=Arrays.copyOfRange(arr,start,mid+1);
+        int right[]=Arrays.copyOfRange(arr,mid+1,end+1);
+        while(i<left.length&&j<right.length){
+            if(left[i]<=right[j])
+            arr[k++]=left[i++];
+            else{
+            arr[k++]=right[j++];
+            count+=(mid+1)-(start+i);}
+        }
+        while(i<left.length) arr[k++]=left[i++];
+        while(j<right.length) arr[k++]=right[j++];
+        return count;
+    }
+    static int init_mergesort(int arr[],int start,int end){
+        int count=0;
+        if(end>start){
+        int mid=(start+end)/2;
+        count+=init_mergesort(arr,start,mid);
+        count+=init_mergesort(arr,mid+1,end);
+        count+=mergesort(arr,start,mid,end);
+        }
+        return count;
+    }
+    public static void main(String[] args){
+        Scanner sc=new Scanner(System.in);
+        int n=sc.nextInt();
+        int arr[]=new int[n];
+        int i;
+        for(i=0;i<n;i++) arr[i]=sc.nextInt();
+        int count=init_mergesort(arr,0,n-1);
+        System.out.println(count);}
+}

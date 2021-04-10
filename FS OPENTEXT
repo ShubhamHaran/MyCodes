@@ -1,0 +1,67 @@
+Given a set of weights of n items weights[], and another item wieght w.
+Your task is to check if the sum of weights of continuous subset is equal to 
+one of the multiple of w, where subset size should be minimum 2.
+
+For example: Mulitple of w means, w=3 then multiple of w are
+3, 6, 9, 12, .... so on.
+
+Print true, if such subset sum is possible.
+Otherwise, print false.
+
+Input Format:
+-------------
+Line-1 : Two integers n and w, number of weights and weight to match.
+Line-2 : n space separated integers, weights of n items.
+
+Output Format:
+--------------
+Print a boolean value.
+
+
+Sample Input-1:
+---------------
+5 4
+1 2 3 5 6
+
+Sample Output-1:
+----------------
+false
+
+
+Sample Input-2:
+---------------
+5 4
+1 2 3 6 5
+
+Sample Output-2:
+----------------
+true
+
+Explanation: 
+------------
+sum of  continuous subset of weights [1,2,3,6]  equals to 12, multiple of 4.
+
+
+
+
+import java.util.*;
+class pro{
+    public static void main(String[] args){
+    Scanner sc=new Scanner(System.in);
+    int n,w,i,j;
+    n=sc.nextInt();
+    w=sc.nextInt();
+    int arr[]=new int[n];
+    for(i=0;i<n;i++) arr[i]=sc.nextInt();
+    int dp[][]=new int[n][n];
+    for(i=0;i<n-1;i++) dp[i][i+1]=(arr[i]+arr[i+1])%w;
+    boolean f=false;
+    for(i=0;i<n;i++)
+    {
+        for(j=i+2;j<n;j++){
+            dp[i][j]=(dp[i][j-1]+arr[j])%w;
+            f=f||(dp[i][j]==0);
+        }
+    }
+    System.out.print(f);
+}}

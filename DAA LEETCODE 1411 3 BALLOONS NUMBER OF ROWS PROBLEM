@@ -1,0 +1,62 @@
+You are decorating a side wall with balloons.
+You have an unlimited set of ballons of three different colors.
+
+The decoration should have N rows of 3 balloons each. 
+You have to make sure that no two adjacent balloons have the same colour.
+both vertically and horizontally.
+
+Return the number of ways you can decorate the wall,  
+the answer must be computed modulo 10^9 + 7
+
+Input Format:
+-------------
+An integer N
+
+Output Format:
+--------------
+Print an integer as outpur, number of ways to decorate.
+
+
+Sample Input-1:
+---------------
+1
+
+Sample Output-1:
+----------------
+12
+
+Explanation:
+------------
+Suppose the colors are, B, G, R. Given N is 1
+RBR	BRB	GRB
+RBG	BRG	GRG
+RGR	BGR	GBR
+RGB	BGB	GBG
+
+
+Sample Input-2:
+---------------
+2
+
+Sample Output-2:
+----------------
+54
+https://leetcode.com/problems/number-of-ways-to-paint-n-3-grid/
+==================================================================================
+import java.util.*;
+class pro{
+    public static void main(String[] args){
+        Scanner sc=new Scanner(System.in);
+        int n=sc.nextInt();
+        long a121 =6,a123=6,b121,b123;
+        for(int i=1;i<n;++i) {
+            b121 = a121 * 3 + a123 * 2; // because b121  takes 3 sequences of 121 types and 2 sequences of 123 type
+            b123 = a121 * 2 + a123 * 2; //  because b123  takes 2 sequences of 121 types and 2 sequences of 123 type
+            a121 = b121 % 1000000007;
+            a123 = b123 % 1000000007;
+        }
+        System.out.println((int)((a121 + a123) % 1000000007));
+        
+        
+    }
+}

@@ -1,0 +1,39 @@
+import java.util.*;
+class pro{
+    static int k;
+    static int part(int arr[],int l,int r)
+    {
+        int pivot=arr[r];
+        int start=l;
+        int temp=0;
+        for(int i=l;i<=r-1;i++){
+            if(arr[i]<=pivot){
+                temp=arr[i];
+                arr[i]=arr[start];
+                arr[start]=temp;
+                start++;
+            }
+        }
+        temp=arr[start];
+                arr[start]=arr[r];
+                arr[r]=temp;
+                return start;
+    }
+    static int quick_nth_tallest(int arr[],int l,int r){
+        if(r<l) return 0;
+        int p=part(arr,l,r);
+        if(p==k) return arr[p];
+        if(p>k-1)
+        return(quick_nth_tallest(arr,l,p-1));
+        return(quick_nth_tallest(arr,p+1,r));
+    }
+    public static void main(String[] args){
+        Scanner sc=new Scanner(System.in);
+        int n=sc.nextInt();
+        k=sc.nextInt();
+        k=n-k;
+        int arr[]=new int[n];
+        for(int i=0;i<n;i++) arr[i]=sc.nextInt();
+        System.out.println(quick_nth_tallest(arr,0,n-1));
+    }
+    }

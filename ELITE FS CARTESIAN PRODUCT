@@ -1,0 +1,106 @@
+Naresh is working on expression of words.
+If you give him an expression like, [p,q,r]s[t,u],
+Naresh will form the words like as follows : [pst, psu, qst,qsu, rst, rsu]
+Another example, [a,b]c[d,e] will be converted as: [acd, ace, bcd, bce].
+
+Naresh will be given an expression as a string EXP, like the above format.
+He needs to return all words that can be formed in like mentioned above, 
+Can you help Naresh to convert iven expression into a list of words, in lexicographical order.
+
+NOTE: 
+Expression consist of lowercase alphabets, comma, and square brackets only.
+
+Input Format:
+-------------
+A string EXP, expression.
+
+Output Format:
+--------------
+Print list of words, formed from the expression.
+
+
+Sample Input-1:
+---------------
+[b]c[e,g]k
+
+Sample Output-1:
+----------------
+[bcek, bcgk]
+
+
+Sample Input-2:
+---------------
+[a,b][c,d]
+
+Sample Output-2:
+----------------
+[ac, ad, bc, bd]
+
+
+Sample Input-3:
+---------------
+[xyz]a[b,c]
+
+Sample Output-3:
+----------------
+[xyzab, xyzac]
+=========================================================================
+import java.util.*;
+class pro{
+    public static void main(String[] args){
+        Scanner sc=new Scanner(System.in);
+        String s=sc.next();
+        List l=new ArrayList<>();
+        int i=0,j=0;
+        StringBuilder sb=new StringBuilder();
+        while(i<s.length()){
+            if(s.charAt(i)=='['){
+                if(!(sb.length()==0)){List t=new ArrayList<>(); t.add(sb); l.add(t); sb=new StringBuilder();}
+                j=i+1;
+                while(j<s.length()){
+                    if(s.charAt(j)==']'){
+                        String arr[]=s.substring(i+1,j).split(",");
+                        l.add(Arrays.asList(arr));
+                        i=j+1;
+                        j=0;
+                        break;
+                    }
+                    else{
+                        j+=1;
+                    }
+                }
+            }
+            else{
+                sb.append(s.charAt(i));
+                i+=1;
+            }
+        }
+        if(!(sb.length()==0)){List t=new ArrayList<>(); t.add(sb); l.add(t);}
+        Queue<StringBuilder>q1=new LinkedList<>();
+        Queue<StringBuilder>q2=new LinkedList<>();
+        List<StringBuilder>t=(List)l.get(0);
+        for(i=0;i<t.size();i++){
+            q1.offer(new StringBuilder(t.get(i)));
+        }
+        for(i=1;i<l.size();i++){
+            t=(List)l.get(i);
+            for(j=0;j<t.size();j++){
+            Queue temp=new LinkedList<>(q1);
+            while(temp.size()>0){
+                sb=new StringBuilder((StringBuilder)temp.poll());
+                sb.append(t.get(j));
+                q2.offer(sb);
+            }
+        }
+        q1=q2;
+        q2=new LinkedList<>();
+        }
+        List<String>f=new ArrayList<>();
+        while(q1.size()>0)
+        f.add(q1.poll().toString());
+        Collections.sort(f);
+        System.out.print(f);
+        sc.close();
+        
+    }
+}

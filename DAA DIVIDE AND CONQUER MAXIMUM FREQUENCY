@@ -1,0 +1,29 @@
+import java.util.*;
+class pro {
+    static int n;
+    static int arr[];
+    static int doit(int l,int r){
+        if(l>r) return 0;
+        if(l==r) return arr[l];
+        int m=l+(r-l)/2;
+        int left=doit(l,m);
+        int right=doit(m+1,r);
+        if(left==right){return left;}
+        int lc=0,rc=0;
+        for(int i=m;i>=l;i--){
+            if(arr[i]==left){lc+=1;}
+        }
+        for(int i=m+1;i<=r;i++){
+            if(arr[i]==right){rc+=1;}
+        }
+        if(lc>rc){return left;}
+        return right;
+    }
+    public static void main(String[] args) {
+        Scanner sc=new Scanner(System.in);
+        n=sc.nextInt();
+        arr=new int[n];
+        for(int i=0;i<n;i++) arr[i]=sc.nextInt();
+        System.out.print(doit(0,n-1));
+    }
+}

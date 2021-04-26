@@ -1,0 +1,78 @@
+The decoration on the wall, made up of led bulbs. When the bulbs turned on, 
+the bulbs emit either bule color light or white color light. 
+The leds bulbs decorated in the form of a grid of size m*n. 
+And when you turned on the bulbs, the bulbs are emiting the light 
+in blue color (1) and white color (0).
+
+You are given the current state of the decorated wall of size M*N,
+Your task is to find the biggest square can be formed using blue colored bulbs,
+and return its area.
+
+Input Format:
+-------------
+Line-1: Two space separated integers, M and N size of the decoration grid.
+Next M lines: N space separated integers ( either 0 or 1 only).
+
+Output Format:
+--------------
+Print an integer, area of the biggest square grid of blue colored bulbs.
+
+
+Sample Input:
+-------------
+5 6
+1 0 0 1 0 1
+0 1 1 1 1 1
+1 1 1 1 0 1
+0 1 1 1 0 1
+1 0 1 0 1 1 
+
+Sample Output:
+--------------
+9
+============================================================================================
+import java.util.*;
+class pro{
+    public static void main(String[] args){
+        Scanner sc=new Scanner(System.in);
+        int m,n;
+        m=sc.nextInt();
+        n=sc.nextInt();
+        int grid[][]=new int[m][n];
+        int horizontal[][]=new int[m][n];
+        int vertical[][]=new int[m][n];
+        for(int i=0;i<m;i++)
+        {
+            for(int j=0;j<n;j++){
+                grid[i][j]=sc.nextInt();
+            }
+        }
+        for(int i=0;i<m;i++)
+        {
+            for(int j=0;j<n;j++){
+                if(grid[i][j]==1){
+                    if(j>0) horizontal[i][j]=horizontal[i][j-1]+1;
+                    else horizontal[i][j]=1;
+                    if(i>0) vertical[i][j]=vertical[i-1][j]+1;
+                    else vertical[i][j]=1;
+                }
+            }
+        }
+        int max=0,sum=0;
+        for(int i=0;i<m;i++){
+            for(int j=0;j<n;j++){
+                if(grid[i][j]==1){
+                    sum=1;
+                    max=Math.max(max,sum);
+                for(int k=1;k<=Math.max(m,n);k++){
+                    if(j+k<n&&i+k<m&&horizontal[i][j+k]>k&&horizontal[i+k][j+k]>k&&vertical[i][j+k]!=0&&vertical[i+k][j+k]>k)
+                    max=Math.max(max,k+1);
+                    else
+                    break;
+                }
+            }
+            }
+        }
+        System.out.println(max*max);
+    }
+}

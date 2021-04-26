@@ -1,0 +1,74 @@
+Babylonians invented muliplication of numbers.
+
+You will be given two strings consist of digits only.
+You have to perform the multiplication of these two strings using 
+Babylonians approach, and return the result of multiplication of two strings.
+
+
+Input Format:
+-------------
+Two space separated strings, num1 and num2.
+
+Output Format:
+--------------
+Print the product of two strings num1 and num2.
+
+
+Sample Input-1:
+---------------
+5 4 
+
+Sample Output-1:
+----------------
+20
+
+
+Sample Input-2:
+---------------
+121 432 
+
+Sample Output-2:
+----------------
+52272
+
+Note:
+-----
+	- Input should contain digits only, and should not contain leading 0's except 0.
+	- Output will be in the range of integer only.
+	- There will be no leading minus '-' symbol also.
+	- Should not use built-in BigInteger library.
+	- Should not convert the given strings into integers.
+==========================================================================================
+import java.util.*;
+class pro{
+    public static void main(String[] args){
+        Scanner sc=new Scanner(System.in);
+        String m=sc.next();
+        String n=sc.next();
+        int number[]=new int[12];
+        int l1=m.length();
+        int l2=n.length();
+        for(int i=l1-1;i>=0;i-=1){
+            for(int j=l2-1;j>=0;j-=1){
+                number[11-(l1+l2-2-(i+j))]+=(m.charAt(i)-'0')*(n.charAt(j)-'0');
+            }
+        }
+        //System.out.println(number[11]);
+        int add=0;
+        int sum=0;
+        for(int i=11;i>=0;i-=1){
+            add=number[i]%10;
+            sum=number[i]/10;
+            number[i]=add;
+            if(i!=0)
+            number[i-1]+=sum;
+        }
+        boolean zflag=false;
+        for(int i=0;i<12;i++){
+            if(zflag==false&&number[i]!=0) zflag=true;
+            if(zflag==true) System.out.print(number[i]);
+        }
+        if(zflag==false) System.out.println(0);
+        sc.close();
+    }
+}

@@ -1,0 +1,89 @@
+Motu loves to eat Samosas. A Samosas vendor prepared N boxes of samosas, 
+where i-th box contains box[i] samosas. And the samosas vendor went outside,
+He will be back in T hours time.
+
+Motu can decide his eating speed of samosas per hour as S.  
+Each hour, He chooses any box of samosas, and eats S samosas from that box.  
+If the box has less than S samosas, he eats all of them instead, 
+and won't eat any more samosas during this hour.
+
+Motu likes to eat slowly, but he wants to finish eating all the samosas 
+before the vendor come back.
+
+Can you help Motu to find out his minimum eating speed S,
+such that he can eat all the samosas within T hours, and print S.
+
+Note:
+	- You may assume that the time T is always >= Number of boxes
+
+Input Format:
+-------------
+Line-1: space separated integers, box[], number of samosas in each box
+Line-2: An integer T.
+
+Output Format:
+--------------
+Print an integer S, minimum eating speed of Motu.
+
+
+Sample Input-1:
+---------------
+4 8 9 13
+8
+
+Sample Output-1:
+----------------
+5
+
+
+Sample Input-2:
+---------------
+15 18 12 17 22
+7
+
+Sample Output-2:
+----------------
+17
+
+
+
+
+
+import java.util.*;
+class pro{
+    static int t;
+    static boolean can(int arr[],int key){
+        if(key<=0) return false;
+        int count=0;
+        for(int i=0;i<arr.length;i++){
+            if(arr[i]<=key) count+=1; else{
+            count+=arr[i]/key;
+            if(arr[i]%key!=0) count+=1;
+        }}
+        return(count<=t);
+    }
+    static int bin_search(int arr[],int left,int right){
+        if(right<left) return left;
+        if(left==right) return left;
+        int mid;
+        while(left<right){
+            mid=left+(right-left)/2;
+            if(can(arr,mid))
+            return(bin_search(arr,left,mid));
+            else
+            return(bin_search(arr,mid+1,right));
+        }
+        return left;
+    }
+    public static void main(String[] args){
+        Scanner sc=new Scanner(System.in);
+        String sarr[]=sc.nextLine().split(" ");
+        int n=sarr.length;
+        int arr[]=new int[n];
+        t=sc.nextInt();
+        for(int i=0;i<n;i++){arr[i]=Integer.parseInt(sarr[i]);}
+        Arrays.sort(arr);
+        if(t==arr.length-1) System.out.print(arr[n-1]); else
+        System.out.print(bin_search(arr,1,arr[n-1]));
+    }
+}

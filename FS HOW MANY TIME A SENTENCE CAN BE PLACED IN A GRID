@@ -1,0 +1,84 @@
+You are given a phrase and a paper of size m*n.
+So you can type exactly m * n characters on that paper.
+i.e,. there are 'm' rows and in each row you can type 'n' characters
+You need to type the phrase on the paper with some rules.
+
+The rules are as follows:
+    - A word in the phrase cannot be split into two lines.
+    - The order of words in the phrase shuld not change.
+    - Two consecutive words in a line must be separated by a single space.
+
+Your task is to find out how many times the phrase can be typed on the paper.
+
+constraint:
+	Length of each word is <=10.
+
+Input Format:
+-------------
+Line-1: Three space separated integers m, n, and s, grid size m*n, number of words.
+Line-2: 's' space separated strings, set of words
+
+Output Format:
+--------------
+Print an integer, no.of times set of words fit into the grid.
+
+
+Sample Input-1:
+---------------
+2 8 2
+socail distance
+
+Sample Output-1:
+----------------
+1
+
+Explanation:
+------------
+social__
+distance
+
+
+Sample Input-2:
+---------------
+3 6 3
+a bc def
+
+Sample Output-2:
+----------------
+2
+
+Explanation:
+------------
+a_bc__
+def_a_
+bc_def
+=====================================================================================
+import java.util.*;
+class pro{
+    static int count_it(int length[],int m,int n,int w){
+            int count=0;
+            int rows=0;
+            int yet=0;
+            while(rows<m){
+                for(int i=0;i<w;i++){
+                    //System.out.println("i="+i+"row="+rows+"yet="+yet+"l[i]"+length[i]);
+                if(yet+length[i]+1<=n){yet+=length[i]+1;}
+                else if(yet+length[i]>n){rows+=1; yet=length[i]+1;}
+                else if(yet+length[i]==n){rows+=1; yet=1;}
+                if(i==w-1) count+=1;
+                if(rows==m) return count;
+            }}
+            return count;
+            
+    }
+    public static void main(String[] args){
+        Scanner sc=new Scanner(System.in);
+        int m=sc.nextInt();
+        int n=sc.nextInt();
+        int w=sc.nextInt();
+        int length[]=new int[w];
+        for(int i=0;i<w;i++) length[i]=sc.next().length();
+        System.out.println(count_it(length,m,n,w));
+        sc.close();
+    }
+}

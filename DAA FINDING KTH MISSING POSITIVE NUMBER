@@ -1,0 +1,33 @@
+import java.util.*;
+class pro{
+    static int arr[];
+    static int missing(int mid){
+        return arr[mid]-arr[0]-mid;
+    }
+    public static void main(String[] args){
+        Scanner sc=new Scanner(System.in);
+        int n=sc.nextInt();
+        int k=sc.nextInt();
+        arr=new int[n];
+        for(int i=0;i<n;i++)
+        arr[i]=sc.nextInt();
+        int l=0;
+        int r=n-1;
+        int sum=0;
+        int mid=0;
+        int idx;
+        if(k>missing(n-1)){
+            System.out.println(arr[n-1]+k-missing(n-1));
+        } else{
+        while(l<r){
+            mid=l+(r-l)/2;
+            idx=missing(mid);
+            if(idx>=k)
+                r=mid;
+            else
+                l=mid+1;
+        }
+        System.out.println(arr[l-1]+k-missing(l-1));
+        }
+    }
+}

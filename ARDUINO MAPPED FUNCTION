@@ -1,0 +1,16 @@
+void setup()
+{
+  Serial.begin(9600);
+  int mapped;
+  for(int adc=0;adc<1024;adc++){
+    mapped=map(adc,0,1023,0,255);
+    Serial.print(adc);
+    Serial.print(",");
+    Serial.println(mapped);
+    
+  }}
+
+void loop()
+{
+  
+}

@@ -1,0 +1,56 @@
+Nehanth, a bubbly kid playing with digits and creating numbers using them.
+The kid is creating the number called successive number. 
+A number is called successive number, if and only if 
+each digit in the number is one less than the next digit.
+
+You are given two integers, start and end, both are inclusive.
+Your task to find and print all the successive numbers in the given range (start, end).
+
+Input Format:
+-------------
+Two space separated integers, start and end
+
+Output Format:
+--------------
+Print the list of successive numbers in the range(start, end).
+
+
+Sample Input-1:
+---------------
+50 150
+
+Sample Output-1:
+----------------
+[56, 67, 78, 89, 123]
+
+
+Sample Input-2:
+---------------
+100 600
+
+Sample Output-2:
+----------------
+[123, 234, 345, 456, 567]
+
+import java.util.*;
+class pro{
+    static List<Integer>ls=new ArrayList<>();
+    static int l;
+    static int r;
+    public static void bt(int number,int digit){
+        if(number>r) return;
+        if(number>=l&number<=r) ls.add(number);
+        if(digit==9) return;
+        bt(number*10+(digit+1),digit+1);
+    }
+    public static void main(String[] args){
+        Scanner sc=new Scanner(System.in);
+        l=sc.nextInt();
+        r=sc.nextInt();
+        for(int i=1;i<=9;i++){
+            bt(i,i);
+        }
+        Collections.sort(ls);
+        System.out.println(ls);
+    }
+}

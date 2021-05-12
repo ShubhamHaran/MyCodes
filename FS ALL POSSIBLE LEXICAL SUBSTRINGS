@@ -1,0 +1,68 @@
+Now a days, everyone is used type the words using short-forms,
+A short-form can be created by replacing non-intersected substrings 
+with their respective lengths.
+
+e.g., elite can be written as follows:
+    - e3e (by replacing lut with 3), 
+    - el2e (by replacing it with 2), 
+    - 3t1 (by replacing eli and e with 3 and 1).
+etc.
+
+
+You will be given a word.
+Your task is to find all possible short-fomrs of the given word, 
+and print them as a list of lexicographic order.
+
+
+Input Format:
+-------------
+A string W, the word.
+
+Output Format:
+--------------
+Print the list of possible short-forms of W in lexographic order. 
+
+
+Sample Input-1:
+---------------
+kmit
+
+Sample Output-1:
+----------------
+[4, 3t, 2i1, 2it, 1m2, 1m1t, 1mi1, 1mit, k3, k2t, k1i1, k1it, km2, km1t, kmi1, kmit]
+
+
+Sample Input-2:
+---------------
+cse
+
+Sample Output-2:
+----------------
+[3, 2e, 1s1, 1se, c2, c1e, cs1, cse]
+
+
+
+import java.util.*;
+class pro{
+    static List<String>l=new ArrayList<>();
+    static void bfs(String s,int i,int num,String mod){
+        if(i>s.length()) return;
+        if(i==s.length()&&num!=0){ l.add(mod+String.valueOf(num)); return;}
+        if(i==s.length()){l.add(mod); return;}
+        if(num!=0)
+        {
+            bfs(s,i+1,num+1,mod);
+            bfs(s,i+1,0,mod+String.valueOf(num)+s.charAt(i));
+        }
+        else{
+        bfs(s,i+1,0,mod+s.charAt(i));
+        bfs(s,i+1,1,mod);
+        }}
+    public static void main(String[] args){
+        Scanner sc=new Scanner(System.in);
+        String s=sc.next();
+        bfs(s,0,0,"");
+        Collections.sort(l);
+        System.out.println(l);
+    }
+}

@@ -1,0 +1,66 @@
+Cardano is a famous mathematician. working on numbers.
+Given a number N, which is the product of all the digits of a number.
+You need to find such smallest number S.
+
+Your task is to help Mr Cardano to find smallest number S, 
+where the product of all the digits of S should be equal to N.
+If it is not possible to create S with in range of integer, print 0.
+
+
+Input Format:
+-------------
+An integer N
+
+Output Format:
+--------------
+Print an integer, smallest number S.
+
+
+Sample Input-1:
+---------------
+36
+
+Sample Output-1:
+----------------
+49
+
+
+Sample Input-2:
+---------------
+147
+
+Sample Output-2:
+----------------
+377
+
+
+Sample Input-3:
+---------------
+22
+
+Sample Output-3:
+----------------
+0
+
+===========================================================================
+import java.util.*;
+class pro{
+    public static void main(String[] args){
+        Scanner sc=new Scanner(System.in);
+        int n=sc.nextInt();
+        if(n<=9) System.out.println(n);
+        else{
+        int arr[]=new int[8];
+        for(int i=9;i>=2&&n>0;i-=1){
+            while(n%i==0&&n>0){
+                arr[i-2]+=1;
+                n=n/i;
+            }
+        }
+        if(n!=0&&n!=1) System.out.println(0); else{
+        for(int i=0;i<arr.length;i++){
+            for(int j=0;j<arr[i];j+=1)
+            System.out.print(i+2);
+        }}
+    }}
+}

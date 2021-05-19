@@ -48,44 +48,15 @@ Fibonacci Sequence is : 1 99 100 199
 ==============================================================================
 import java.util.*;
 class pro{
-    static String calc(String str1,String str2){
-        if (str1.length() > str2.length()){
-        String t = str1;
-        str1 = str2;
-        str2 = t;
-    }
-    String str="";
-    int n1=str1.length(),n2 = str2.length();
-    str1=new StringBuilder(str1).reverse().toString();
-    str2=new StringBuilder(str2).reverse().toString();
-    int carry=0;
-    for(int i=0;i<n1;i++)
-    {
-        int sum=((int)(str1.charAt(i)-'0') +
-                    (int)(str2.charAt(i)-'0')+carry);
-        str +=(char)(sum % 10 + '0');
-        carry =sum / 10;
-    }
-    for(int i = n1; i < n2; i++)
-    {
-        int sum = ((int)(str2.charAt(i) - '0') + carry);
-        str += (char)(sum % 10 + '0');
-        carry = sum / 10;
-    }
-    if (carry > 0)
-        str += (char)(carry + '0');
-    str = new StringBuilder(str).reverse().toString();
-    return str;
-}
-    static boolean doit(String s,String num1,String num2){
+static boolean doit(String s,long num1,long num2){
         StringBuilder sb=new StringBuilder();
         sb.append(num1);
         sb.append(num2);
-        String num3;
+        long num3;
         while(sb.length()<=s.length()){
             //System.out.println(sb);
             if(sb.toString().equals(s)) return true;
-            num3=calc(num1,num2);
+            num3=num1+num2;
             sb.append(num3);
             num1=num2;
             num2=num3;
@@ -97,18 +68,18 @@ class pro{
     public static void main(String[] args){
         Scanner sc=new Scanner(System.in);
         String s=sc.next();
-        String s1,s2;
+        long s1,s2;
         boolean f=false;
-        String sum;
-        for(int i=1;i<s.length();i++)
+        long sum;
+        for(int i=1;i<=s.length()/2;i++)
         {
-            s1=s.substring(0,i);
+            s1=Long.parseLong(s.substring(0,i));
             if(s.charAt(i)=='0') continue;
-            for(int j=i+1;j<s.length();j++){
-                s2=s.substring(i,j);
+            for(int j=i+1;j<s.length()&&(j-i)<=s.length()/2;j++){
+                s2=Long.parseLong(s.substring(i,j));
                 if(s.charAt(j)=='0') continue;
-                sum=calc(s1,s2);
-                    if(s.substring(j).startsWith(sum)){
+                sum=s1+s2;
+                    if(s.substring(j).startsWith(String.valueOf(sum))){
                     f=doit(s,s1,s2);}
                     if(f==true) break;
             }

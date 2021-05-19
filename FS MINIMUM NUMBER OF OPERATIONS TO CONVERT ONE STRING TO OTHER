@@ -1,0 +1,73 @@
+Chitti built a mini robot 'Tiny', which is used to transform
+the given string S into a target string T.
+
+Tiny is allowed to perform the given steps to transform S into T:
+	- Add a letter to S at any place.
+	- Remove any letter from S.
+	- Substitute a letter in S with another letter.
+
+Your task is to write a program for Tiny to transform S into T
+in minimum number of steps. and return the count of steps.
+
+Input Format:
+-------------
+Two space separated strings S and T, consist of lowercase letters only.
+
+Output Format:
+--------------
+Print an integer, minimum number of steps required to transform S into T.
+
+
+Sample Input-1:
+---------------
+energy synergy
+
+Sample Output-1:
+----------------
+2
+
+Explanation:
+-----------
+energy -> senergy (add 's')
+senergy -> synergy (substitute 'y' in place of 'e')
+
+
+Sample Input-2:
+---------------
+treatment basement
+
+Sample Output-2:
+----------------
+5
+
+Explanation:
+-----------
+treatment -> tretment (remove 'a')
+tretment -> trement (remove 't')
+trement -> arement (substitute 'a' in place of 't')
+arement -> asement (substitute 's' in place of 'r')
+asement -> basement (add 'b')
+================================================================================================================================
+import java.util.*;
+class pro{
+    public static void main(String[] args){
+        Scanner sc=new Scanner(System.in);
+        String str1=sc.next();
+        String str2=sc.next();
+        int dp[][] = new int[str1.length()+1][str2.length()+1];
+    for(int i=0;i<=str1.length();i++){
+        for(int j=0;j<=str2.length();j++){
+            if(i==0)
+                dp[i][j] = j;
+            else if(j==0)
+                dp[i][j] = i;
+            else if(str1.charAt(i-1) == str2.charAt(j-1))
+                dp[i][j] = dp[i-1][j-1];
+            else{
+                dp[i][j] = 1 + Math.min(dp[i-1][j], Math.min(dp[i][j-1], dp[i-1][j-1]));
+            }
+        }
+    }
+    System.out.print(dp[str1.length()][str2.length()]);
+    }
+}

@@ -1,0 +1,90 @@
+Bharath is given a set of integers arr[] of length N.
+He planned split arr[] into four subsets.
+
+He also defined a rule set to split the set arr[] as follows:
+	- select three indices p, q, r, where p < q < r.
+	- split the arr[] as four subsets: sub(0, p-1), sub(p+1, q-1) sub(q+1, r-1), sub(r+1, N-1)
+	- the sum of elements in each subset should be equal .
+	  i.e., subsum(0, p-1) = subsum(p+1, q-1) = subsum(q+1, r-1) = subsum(r+1, N-1)
+
+Your task is to help Bharath to split the set arr[] with the above rules,
+If you are able to satisfy all the rules , return true. Otherwise, false.
+
+
+Input Format:
+-------------
+Line-1 -> An integer N, number of array elements
+Line-2 -> N space separated integers, elements of the array.
+
+Output Format:
+--------------
+Print an boolean result.
+
+
+Sample Input-1:
+---------------
+10
+2 6 1 7 2 7 8 7 7 0
+
+Sample Output-1:
+----------------
+false
+
+
+Sample Input-2:
+---------------
+10
+3 3 4 1 5 4 2 4 5 6
+
+Sample Output-2:
+----------------
+true
+
+Explanation:
+--------------
+p = 2, q = 5, r = 8.
+subsum(0, i - 1) = subsum(0, 1) = 6
+subsum(i + 1, j - 1) = subsum(3, 4) = 6
+subsum(j + 1, k - 1) = subsum(6, 7) = 6
+subsum(k + 1, n - 1) = subsum(9) = 6
+==================================================================
+import java.util.*;
+class pro{
+    static int presum[];
+    static Set<Integer> canform(int l,int r,int arr[]){
+        Set<Integer>st=new HashSet<>();
+        int before=arr[l];
+        int after;
+        if(l==0) after=presum[r];
+        else
+        after=presum[r]-presum[l-1];
+        after-=before;
+        for(int i=l+1;i<=r;i++){
+            after-=arr[i];
+            if(before==after){ st.add(before);}
+            before+=arr[i];
+        }
+        return st;
+    }
+    static boolean doit(int arr[],int n){
+        if(n<7) return false;
+        for(int i=3;i<=n-3-1;i++){
+            Set<Integer>left_sum=canform(0,i-1,arr);
+            Set<Integer>right_sum=canform(i+1,n-1,arr);
+            left_sum.retainAll(right_sum);
+            if(left_sum.size()>0)
+            return true;
+        }
+        return false;
+    }
+    public static void main(String[] args){
+        Scanner sc=new Scanner(System.in);
+        int n=sc.nextInt();
+        int arr[]=new int[n];
+        for(int i=0;i<n;i++) arr[i]=sc.nextInt();
+        presum=new int[n];
+        presum[0]=arr[0];
+        for(int i=1;i<n;i++) presum[i]=presum[i-1]+arr[i];
+        System.out.println(doit(arr,n));
+    }
+}

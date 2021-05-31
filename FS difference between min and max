@@ -1,0 +1,82 @@
+Sumanth has an idea to calculate the ABD value of a string.
+An ABD value is defined as the absolute diffrence between
+the most occurance count of a charcter and the least occurance count 
+of another character in the given string.
+
+Sumanth is given a string S,
+He wants to find out, the sum of ABD values of all the substrings of S,
+where ABD > 0.
+
+Your task is to help Sumanth to find total ABD value of substrings of S.
+
+Input Format:
+-------------
+A String S
+
+Output Format:
+--------------
+Print an integer, sum of ABD of all the strings of S
+
+
+Sample Input-1:
+---------------
+abbcc
+
+Sample Output-1:
+----------------
+5
+
+Explanation: 
+------------
+The substrings with non-zero ABD are as follows:
+Substring and ABD value -> "abb"-1,"abbc"-1,"abbcc"-1,"bbc"-1,"bcc"-1
+The total sum of ABD is, 5
+
+
+Sample Input-2:
+---------------
+abcbabc
+
+Sample Output-2:
+----------------
+15
+
+Explanation: 
+------------
+The substrings with non-zero ABD are as follows:
+substring and ABD value -> "abcb"-1,"abcba"-1,"abcbab"-2,"abcbabc"-1,"bcbabc"-2
+"bcbab"-2, "bcba"-1, "bcb"-1, "cbab"-1,"cbabc"-1,"bab"-1, "babc"-1.
+The total sum of ABD is, 15
+======================================================================================
+import java.util.*;
+class pro{
+    static int minchar=-1;
+    static int min=Integer.MAX_VALUE;
+    static void find(int count[]){
+        int t=Integer.MAX_VALUE;
+        for(int i=0;i<26;i++) if(count[i]!=0&&count[i]<t){ t=count[i]; minchar=i;}
+        min=t;
+    }
+    public static void main(String[] args){
+        Scanner sc=new Scanner(System.in);
+        String s=sc.next();
+        int count[]=new int[26];
+        int n=s.length();
+        int max=Integer.MIN_VALUE;
+        int ans=0;
+        for(int i=0;i<n;i++){
+            min=Integer.MAX_VALUE;
+            max=Integer.MIN_VALUE;
+            minchar=-1;
+            for(int j=i;j<n;j++){
+                count[s.charAt(j)-'a']++;
+                if(count[s.charAt(j)-'a']<min){min=count[s.charAt(j)-'a']; minchar=s.charAt(j)-'a';}
+                else if(s.charAt(j)-'a'==minchar) find(count);
+            max=Math.max(count[s.charAt(j)-'a'],max);
+            ans+=max-min;
+            }
+            Arrays.fill(count,0);
+        }
+        System.out.println(ans);
+    }
+}

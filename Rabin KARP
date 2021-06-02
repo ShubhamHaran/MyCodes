@@ -1,0 +1,109 @@
+Charlie Brown is working with strings,
+He is a given a string S. He wants to find out the maximum substring 'MaxSub'.
+
+MaxSub is a substring which appears atleast twice in S with Maximum length. 
+
+Your task is to help Charlie Brown to find the Maximum Substring MaxSub,
+and print the length of MaxSub. If there is MaxSub, return 0.
+
+Input Format:
+-------------
+A string S.
+
+Output Format:
+--------------
+Print an integer, length of MaxSub
+
+
+Sample Input-1:
+---------------
+babababba
+
+Sample Output-1:
+----------------
+5
+
+Explanation: 
+------------
+The Maximum substring is 'babab' , which occurs 2 times.
+
+
+Sample Input-2:
+---------------
+abbbbba
+
+Sample Output-2:
+----------------
+4
+
+Explanation: 
+------------
+The Maximum substring is 'bbbb' , which occurs 2 times.
+
+
+Sample Input-3:
+---------------
+vignesh
+
+Sample Output-3:
+----------------
+0
+
+===========================================================================
+import java.util.*;
+class pro{
+    static long mod=1000000007;
+    static long hash(String s){
+        long ans=0;
+        char ch[]=s.toCharArray();
+        for(int i=0;i<ch.length;i++){
+            ans+=(ch[i])%mod;
+            ans=ans%mod;
+        }
+        return ans;
+    }
+    static boolean substr(int mid,String s){
+        if(mid==0) return false;
+        char ch[]=s.toCharArray();
+        int n=s.length();
+        long sup=1;
+        int count;
+        for(int i=0;i<=n-mid;i++){
+            count=0;
+            String s1=s.substring(i,i+mid);
+            String s2=s.substring(0,mid);
+            long hashe=hash(s1);
+            long h1=hash(s2);
+            if(h1==hashe&&s1.equals(s2))
+            count=1;
+            //System.out.println(h1+" "+hashe+" "+mid+" "+s1+" "+count+" "+s2);
+            for(int j=1;j<=n-mid;j++){
+                h1=((h1-ch[j-1])+(ch[j+mid-1]));
+                if(h1==hashe&&s.substring(j,j+mid).equals(s1)) count+=1;
+                //System.out.println(h1+" "+hashe+" "+mid+" "+s1+" "+count+" "+s2);
+            }
+            //System.out.println(h1+" "+hashe+" "+mid+" "+s1+" "+count+" "+s2);
+            if(count>=2) return true;
+        }
+        return false;
+    }
+    public static void main(String[] args){
+        Scanner sc=new Scanner(System.in);
+        String s=sc.next();
+        int n=s.length();
+        int l=0;
+        int r=n;
+        int mid;
+        int ans=0;
+        while(l<=r){
+            mid=l+(r-l)/2;
+            if(substr(mid,s)){
+                ans=mid;
+                l=mid+1;
+            }
+            else
+               r=mid-1;
+        }
+        System.out.println(ans);
+    }
+}

@@ -1,0 +1,115 @@
+Budget Padmanabham planned to visit the tourist places.
+There are N tourist places in the city.
+The tourist places are numbered from 1 to N.
+You are given the routes[] to travel between the tourist places in the city.
+where routes[i]=[place-1, place-2, price], A route is a bi-directional route.
+You can travel from place-1 to place-2 or place-2 to place-1 with the given price.
+
+Your task is to help Budget Padmanabham to find the cheapest route plan,
+to visit all the tourist places in the city. If you are not able to find such plan, print -1.
+
+Input Format:
+-------------
+Line-1: Two space separated integers N and R,number of places and routes.
+Next R lines: Three space separated integers, start, end and price.
+ 
+Output Format:
+--------------
+Print an integer, minimum cost to visit all the tourist places.
+
+
+Sample Input-1:
+---------------
+4 5
+1 2 3
+1 3 5
+2 3 4
+3 4 1
+2 4 5
+
+Sample Output-1:
+----------------
+8
+
+Explanation:
+------------
+The cheapest route plan is as follows:
+1-2, 2-3, 3-4 and cost is 3 + 4 + 1 = 8
+
+
+Sample Input-2:
+---------------
+4 3
+1 2 3
+1 3 5
+2 3 4
+
+Sample Output-2:
+----------------
+-1
+
+=======================================================
+import java.util.*;
+class edge{
+    int u,v,w;
+    edge(int u,int v,int w){
+        this.u=u;
+        this.v=v;
+        this.w=w;
+    }
+}
+class edge_sort implements Comparator<edge>{
+    public int compare(edge a,edge b){
+        return a.w-b.w;
+    }
+}
+class pro{
+    static int find_parent(int a,int parent[]){
+        if(parent[a]==a) return a;
+        return parent[a]=find_parent(parent[a],parent);
+    }
+    static void find_edge(int a,int b,int parent[],int cost[]){
+        a=find_parent(a,parent);
+        b=find_parent(b,parent);
+        int temp;
+        if(cost[a]<cost[b]){
+            temp=a;
+            a=b;
+            b=temp;
+        }
+        parent[b]=a;
+        cost[a]+=cost[b];
+    }
+    public static void main(String[] args){
+        Scanner sc=new Scanner(System.in);
+        int n=sc.nextInt();
+        int edges=sc.nextInt();
+        int cost[]=new int[n];
+        int parent[]=new int[n];
+        edge e[]=new edge[edges];
+        for(int i=0;i<n;i++){
+            parent[i]=i;
+            cost[i]=1;
+        }
+        for(int i=0;i<edges;i++)
+        {
+            int p=sc.nextInt()-1;
+            int q=sc.nextInt()-1;
+            int r=sc.nextInt();
+            e[i]=new edge(p,q,r);
+        }
+        int count=0;
+        int min=0;
+        Arrays.sort(e,new edge_sort());
+        for(edge i:e){
+            if(find_parent(i.u,parent)!=find_parent(i.v,parent)){
+                min+=i.w;
+                find_edge(i.u,i.v,parent,cost);
+            }
+        }
+        for(int i=0;i<n;i++) if(parent[i]==i) count++;
+        if(count==1) System.out.println(min);
+        else
+        System.out.println(-1);
+    }
+}

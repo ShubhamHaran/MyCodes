@@ -1,0 +1,95 @@
+Shaggy Rogers is working with numbers.
+He is given a number N, 
+He wants to replace all occurrences of a digit in the number N,
+with another digit between [0-9]. May be with same number too.
+
+But there should not be any leading zeros in the number after the replacement,
+Or the number should not become zero.
+
+Rogers can perform the replacement of the occurrences of the digit in N for two 
+times, He will generate two new numbers P and Q, such that the value of |P-Q| 
+should be Maximum.
+
+Your task is to help Shaggy Roers to find the maximum difference of P and Q possible.
+
+
+Input Format:
+-------------
+An integer N, the number
+
+Output Format:
+--------------
+Print an integer, the maximum difference of P and Q
+
+
+Sample Input-1:
+---------------
+123
+
+Sample Output-1:
+----------------
+820
+
+Explanation:
+------------
+Replacement-1: replace 1 with 9 you will get P as 923
+Replacement-2: replace 2 with 0 you will get Q as 103
+So Max difference is 820.
+
+
+Sample Input-2:
+---------------
+4254
+
+Sample Output-2:
+----------------
+8008
+
+Explanation:
+------------
+Replacement-1: replace 4 with 9 you will get P as 9259
+Replacement-2: replace 4 with 1 you will get Q as 1251
+So Max difference is 8008.
+===================================================================
+import java.util.*;
+class pro{
+    public static void main(String[] args){
+        Scanner sc=new Scanner(System.in);
+        String s=sc.next();
+        int n=s.length();
+        int arr1[]=new int[n];
+        int arr2[]=new int[n];
+        for(int i=0;i<n;i++){ arr1[i]=s.charAt(i)-'0'; arr2[i]=s.charAt(i)-'0';}
+        int k=9;
+        for(int i=0;i<n;i++){
+            if(arr1[i]!=9){
+                k=arr1[i];
+                break;
+            }
+        }
+        for(int i=0;i<n;i++)
+        arr1[i]=arr1[i]==k?9:arr1[i];
+        if(arr2[0]!=1){
+            k=arr2[0];
+            for(int i=0;i<n;i++) arr2[i]=arr2[i]==k?1:arr2[i];
+        }
+        else
+        {
+            for(int i=1;i<n;i++){
+            if(arr2[i]!=0&&arr2[i]!=1){
+                k=arr2[i];
+                break;
+            }}
+            for(int i=0;i<n;i++) arr2[i]=arr2[i]==k?0:arr2[i];
+        }
+        long ans=0;
+        for(int i=0;i<n;i++){
+            ans=ans*10+arr1[i]-arr2[i];
+        }
+        //for(i=0;i<n;i++) System.out.print(arr1[i]+" ");
+        //for(i=0;i<n;i++) System.out.print(arr2[i]+" ");
+        
+        System.out.println(ans);
+        
+    }
+}

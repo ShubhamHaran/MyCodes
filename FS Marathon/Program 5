@@ -1,0 +1,86 @@
+The city of chandigarh is one of the best planned city. 
+All the locations in the city are assigned in the form of grid.
+Further after the onsight of COVID-19 certain localities having been marked
+as containment localities, other localities  marked as normal. 
+
+The chief minister of punjab Capt. Amrinder Singh has hired you to help him 
+with some logistic planning. Capt. Amrinder Singh has given you a map, 
+where all the containment localities are marked as 1 and covid free locations as 0.
+
+You are asked to identify a suitable location where the punjab government can 
+set up a Makeshift Hospital. This Makeshift Hospital has to be at the closest 
+Manhattan Distance from all the Containment localities, i.e. the sum of distance 
+of this makeshift hospital is the least from all containment localities.
+ 
+ 
+Input Format:
+-------------
+Line-1 -> two integers size of the grid, r * c
+Next r lines-> contains 'c' space seperated integers, [0, 1] only.
+
+Output Format:
+--------------
+Print an integer as result.
+
+
+Sample Input:
+-----------------
+3 5
+1 0 0 0 1
+0 0 0 0 0
+0 0 1 0 0
+
+Sample Output:
+-------------------
+6
+
+Explanation: 
+----------------
+Given three containment localities at (0,0), (0,4), and (2,2):
+The point (0,2) is an suitable location , as the total
+travel distance of 2+2+2=6 is minimal. 
+So return 6.
+
+==============================================================================
+import java.util.*;
+class point{
+    int x, y;
+    point(int x,int y){
+        this.x=x;
+        this.y=y;
+    }
+}
+class pro{
+    static int compute(List<point>l,int i,int j){
+        int dist=0;
+        for(point p:l){
+            dist+=Math.abs(p.x-i)+Math.abs(p.y-j);
+        }
+        return dist;
+    }
+    public static void main(String[] args){
+        Scanner sc=new Scanner(System.in);
+        int r=sc.nextInt();
+        int c=sc.nextInt();
+        int grid[][]=new int[r][c];
+        List<point>l=new ArrayList<>();
+        for(int i=0;i<r;i++){
+            for(int j=0;j<c;j++){
+                grid[i][j]=sc.nextInt();
+                if(grid[i][j]==1){
+                    l.add(new point(i,j));
+                }
+            }
+        }
+        int min_dist=Integer.MAX_VALUE;
+        int dist;
+        for(int i=0;i<r;i++){
+            for(int j=0;j<c;j++){
+                    dist=compute(l,i,j);
+                    min_dist=Math.min(dist,min_dist);
+            }
+        }
+        if(min_dist==Integer.MAX_VALUE) min_dist=0;
+        System.out.print(min_dist);
+    }
+}

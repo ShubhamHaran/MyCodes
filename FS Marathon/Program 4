@@ -1,0 +1,83 @@
+There are N celebrities participated in Go-Green Campaign,
+All of them joined together and each one planted a tree on a flat land
+at different positions.
+ 
+Now, your task is to find the maximum number of trees in single straight line.
+
+Input Format:
+-------------
+Line-1 -> An integers N, number of trees planted.
+Next N lines -> Two space separated integers, position of the tree.
+
+Output Format:
+--------------
+Print an integer as result.
+
+
+Sample Input:
+-------------
+6
+1 1
+3 2
+5 3
+4 1
+2 3
+1 4
+
+Sample Output:
+--------------
+4
+
+Explanation:
+------------
+
+    Y
+    |
+    |	"
+    | 		"			"
+    |			"
+    |	"			"	
+    ------------------------- X
+    0   1   2   3   4   5
+
+==================================================================================
+import java.util.*;
+class point{
+    int x,y;
+    point(int x,int y){
+        this.x=x;
+        this.y=y;
+    }
+}
+class pro{
+    static boolean Match(point a,point b,point c){
+        long pro=(b.y-a.y)*(c.x-b.x)-(c.y-b.y)*(b.x-a.x);
+        if(pro==0) return true;
+        return false;
+    }
+    public static void main(String[] args){
+        Scanner sc=new Scanner(System.in);
+        int n=sc.nextInt();
+        point p[]=new point[n];
+        for(int i=0;i<n;i++){
+            p[i]=new point(sc.nextInt(),sc.nextInt());
+        }
+        int c=0;
+        int ans=0;
+        for(int i=0;i<n;i++){
+            point t=p[i];
+            c=0;
+            for(int j=i+1;j<n;j++){
+                point v=p[j];
+            c=1;
+            for(int k=j+1;k<n;k++){
+                point s=p[k];
+                if(Match(t,v,s))
+                c+=1;
+            }
+            ans=Math.max(ans,c+1);
+        }}
+        System.out.println(ans);
+        
+    }
+}

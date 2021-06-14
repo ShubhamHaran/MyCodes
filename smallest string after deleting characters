@@ -1,0 +1,63 @@
+Somayajaulu working with strings.
+He is given a string S, string S contains repeated characters.
+Somayajulu decided to delete all the repeated characters, 
+such that each character in S should appears once and only once.
+He is deleting the characters from S in such a way that, 
+the final string should be the smallest string among all possibilities
+
+You are given the string S.
+Your task is to help Somayajulu to find the smallest string possible 
+after deleting the repeated characters from S.
+
+Input Format:
+-------------
+A string S.
+
+Output Format:
+--------------
+Print a string, smallest string after deleting repeated characters.
+
+
+Sample Input-1:
+---------------
+attitude
+
+Sample Output-1:
+----------------
+aitude
+
+
+Sample Input-2:
+---------------
+cbabacbabca
+
+Sample Output-2:
+----------------
+abc
+===================================================================================
+import java.util.*;
+class pro{
+    public static void main(String[] args){
+        Scanner sc=new Scanner(System.in);
+        char arr[]=sc.next().toCharArray();
+        int count[]=new int[26];
+        boolean v[]=new boolean[26];
+        Stack<Character>st=new Stack<>();
+        for(char ch:arr) count[ch-'a']++;
+        for(char ch:arr){
+            count[ch-'a']-=1;
+            if(v[ch-'a']) continue;
+            while(!st.isEmpty()&&st.peek()>ch&&count[st.peek()-'a']>0)
+            {
+            v[st.peek()-'a']=false;
+            st.pop();
+            }
+            st.push(ch);
+            v[ch-'a']=true;
+        }
+        StringBuilder sb=new StringBuilder();
+        while(!st.isEmpty())
+        sb.append(st.pop());
+        System.out.println(sb.reverse());
+    }
+}

@@ -1,0 +1,48 @@
+Subramanya sastri is good in solving the problems on numerics.
+He is given two numbers start and end, where two values indicates a range.
+The problem to solve by Mr Sastri is to perform the biwise AND operation
+on all natural numbers between start and end and return the value.
+
+Your task is to help Mr.Sastri to find the final result.
+ 
+Note: Both start and end values are positive numbers.
+
+Input Format:
+-------------
+Two space separated integers, Start and End.
+
+Output Format:
+--------------
+Print an integer result.
+
+
+Sample Input-1:
+---------------
+12 15
+
+Sample Output-1:
+----------------
+12
+
+
+Sample Input-2:
+---------------
+7 11
+
+Sample Output-2:
+----------------
+0
+===========================================
+import java.util.*;
+class pro{
+    public static void main(String[] args){
+        Scanner sc=new Scanner(System.in);
+        int l=sc.nextInt();
+        int h=sc.nextInt();
+        while(l<h){
+            h=(h&(h-1));
+        }
+        System.out.println(h);
+        
+    }
+}

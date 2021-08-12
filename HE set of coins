@@ -1,0 +1,19 @@
+static long magicLand(int[] Amount, int M, int N) {
+        long res=0;
+        long C[][]=new long[N+1][M+1];
+        C[0][0]=1;
+        for(int i=1;i<=N;i++){
+            for(int j=0;j<=M;j++){
+                C[i][j] = C[i-1][j];
+                if (j > 0) C[i][j] += C[i-1][j-1];
+                if (C[i][j] >= 1000000007) C[i][j] -= 1000000007;
+            }
+        }
+        Arrays.sort(Amount);
+        for(int i=M-1;i<N;i++){
+            res=(res+Amount[i]*C[i][M-1])%1000000007;
+        }
+        return res;
+
+    }
+}

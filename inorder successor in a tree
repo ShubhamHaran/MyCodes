@@ -1,0 +1,20 @@
+Given a binary search tree root containing unique values, and an integer t, return the value of the inorder successor of t. That is, return the smallest value greater than t in the tree.
+
+Note: you can assume that the inorder successor exists.
+
+Bonus: solve it in \mathcal{O}(h)O(h) time and \mathcal{O}(1)O(1) space where h is the height of the tree.
+
+class Solution {
+    public int solve(Tree root,int t){
+        int min = Integer.MAX_VALUE;
+        while(root!=null){
+            if(root.val>t){
+                min=Math.min(root.val,min);
+                root=root.left;
+            }
+            else
+            root=root.right;
+        }
+        return min;
+    }
+}

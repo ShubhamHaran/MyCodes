@@ -1,0 +1,36 @@
+import java.util.*;
+class pair{
+    int stop;
+    int length;
+    pair(int stop,int length){
+        this.stop=stop;
+        this.length=length;
+    }
+}
+class Solution {
+    public int solve(String str) {
+        Stack<Integer> stk = new Stack<>();
+        int n=str.length();
+        stk.push(-1);
+        int result = 0;
+        for (int i = 0; i < n; i++)
+        {
+            if (str.charAt(i) == '(')
+                stk.push(i);
+            else
+            {
+                if(!stk.empty())
+                    stk.pop();
+                if (!stk.empty())
+                    result
+                        = Math.max(result,
+                                   i - stk.peek());
+                else
+                    stk.push(i);
+            }
+        }
+ 
+        return result;
+
+    }
+}

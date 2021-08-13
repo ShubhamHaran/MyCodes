@@ -1,0 +1,36 @@
+You are looking to paint a row of N fences that can be of K different colors. You have a goal of minimizing cost while ensuring that no two neighboring fences are of the same color.
+
+Given an N by K matrix where the nth row and kth column represents the cost to paint the nth fence with kth color, return the minimum cost which achieves this goal.
+
+Note: All costs will be integers greater than or equal to 0, and there is guaranteed to be at least 2 possible colors.
+
+Bonus: solve in \mathcal{O}(1)O(1) space.
+
+import java.util.*;
+
+class Solution {
+    public int solve(int[][] matrix) {
+        int n=matrix.length,k=matrix[0].length;
+        for (int i = 1; i < n; i++) {
+        int minId = 0, secMinId = -1;
+        for (int j = 1; j < k; j++) {
+            if (matrix[i - 1][j] <= matrix[i - 1][minId]) {
+                secMinId = minId;
+                minId = j;
+            } else if (secMinId == -1)
+                secMinId = j;
+            else if (matrix[i - 1][j] < matrix[i - 1][secMinId])
+                secMinId = j;
+        }
+        for (int j = 0; j < k; j++) {
+            if (j == minId)
+                matrix[i][j] += matrix[i - 1][secMinId];
+            else
+                matrix[i][j] += matrix[i - 1][minId];
+        }
+    }
+    int ans=Integer.MAX_VALUE;
+    for(int i=0;i<k;i++) ans=Math.min(ans,matrix[n-1][i]);
+    return ans;
+    }
+}
